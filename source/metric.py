@@ -194,6 +194,8 @@ def chk_event_metric_3by3(model_name, avg_time=4, time_lag = 8):
     
 def plot_img(img):
 
+    fig = plt.figure(figsize=(4, 4), dpi=300)
+    ax = plt.subplot(111)  
     tmp_img = []
     
     data_max = img.max()
@@ -234,6 +236,12 @@ def plot_img(img):
 #        tmp_img = np.concatenate((img_r,img_g,img_b), axis=2)
         tmp_img = np.concatenate((img,img,img), axis=2)
 
-    plt.figure(figsize=(8, 8))
+    
+    #plt.tick_params(axis=None, which="off", bottom="off", top="off",    
+    #                labelbottom="off", left="off", right="off", labelleft="off") 
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+#    plt.figure(figsize=(8, 8))
     plt.imshow(tmp_img, cmap='gray')
     plt.show()
+    return fig
