@@ -97,16 +97,13 @@ def chk_1ch_output(model_name):
     
     
     print ('## Model Name :', model_name)
-    print ('MAPE 11 : %.3f'%(mape_trs(y_t1_true, y_t1_pred, 11)))
-    print ('RMSE 11 : %.3f'%(rmse_trs(y_t1_true, y_t1_pred, 11)))
+    print ('MAPE 11 : %.4f'%(mape_trs(y_t1_true, y_t1_pred, 11)))
+    print ('RMSE 11 : %.4f'%(rmse_trs(y_t1_true, y_t1_pred, 11)))
     print ('')
-    print ('MAPE all : %.3f'%(mape(y_t1_true, y_t1_pred)))
-    print ('RMSE all : %.3f'%(rmse(y_t1_true, y_t1_pred)))
+    print ('MAPE all : %.4f'%(mape(y_t1_true, y_t1_pred)))
+    print ('RMSE all : %.4f'%(rmse(y_t1_true, y_t1_pred)))
     print ('')
-    
-    
-    
-    
+   
     
     
     mape_trs_list = []
@@ -189,9 +186,9 @@ def chk_event_metric_3by3(model_name, avg_time=4, time_lag = 8):
 #    print (np.shape(event_true), np.shape(event_pred) )
 #    print ('## Model Name :',model_name)
     print ('- True Max %0.0f'%np.max(event_true), ', Pred Max %.0f'%np.max(event_pred))
-    print ('- True Avg %0.3f'%np.average(event_true), ', Pred Avg %.3f'%np.average(event_pred))
-    print ('- Event MAPE : %.3f'%mape(event_true,event_pred))
-    print ('- Event RMSE : %.3f'%rmse(event_true,event_pred))
+    print ('- True Avg %0.4f'%np.average(event_true), ', Pred Avg %.4f'%np.average(event_pred))
+    print ('- Event MAPE : %.4f'%mape(event_true,event_pred))
+    print ('- Event RMSE : %.4f'%rmse(event_true,event_pred))
 
 #######################################################################  
     
