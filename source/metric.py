@@ -33,6 +33,12 @@ def mape(y_true,y_pred):
     return rtn
 
 
+def mae(y_true,y_pred):
+    
+    rtn = np.mean(np.abs((y_true - y_pred)) )
+    
+    return rtn
+                  
 
 #######################################################################
 ### Treshhold Metric 
@@ -65,6 +71,13 @@ def maa_trs(y_true,y_pred, trs=0.0):
     
     return np.average(true_mask)
 
+
+def mae_trs(y_true,y_pred, trs=1):
+    
+    true_mask = y_true>=trs
+    rtn = np.mean(np.abs((y_true - y_pred)[true_mask]) )
+    
+    return rtn
 
 #######################################################################
 
@@ -102,6 +115,9 @@ def chk_1ch_output(model_name):
     print ('')
     print ('MAPE all : %.4f'%(mape(y_t1_true, y_t1_pred)))
     print ('RMSE all : %.4f'%(rmse(y_t1_true, y_t1_pred)))
+    print ('')
+    print ('MAE 11 : %.4f'%(mae_trs(y_t1_true, y_t1_pred, 11)))
+    print ('MAE all : %.4f'%(mae(y_t1_true, y_t1_pred)))
     print ('')
    
     
@@ -189,6 +205,7 @@ def chk_event_metric_3by3(model_name, avg_time=4, time_lag = 8):
     print ('- True Avg %0.4f'%np.average(event_true), ', Pred Avg %.4f'%np.average(event_pred))
     print ('- Event MAPE : %.4f'%mape(event_true,event_pred))
     print ('- Event RMSE : %.4f'%rmse(event_true,event_pred))
+    print ('- Event MAE : %.4f'%mae(event_true,event_pred))
 
 #######################################################################  
     
