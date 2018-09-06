@@ -6,6 +6,7 @@ import os
 import keras
 import keras.backend as K
 
+ADJ_RATE = 100
 
 ############################################################################
 ### Data Processing 
@@ -37,7 +38,7 @@ def maxscale(data) :
     return (data / 5000.0) * 10
 
 def inverse_maxscale(data):
-    rtn = (data*5000.0 )/10
+    rtn = (data*ADJ_RATE)
     rtn = rtn.astype(int)
     return rtn
 
@@ -172,6 +173,28 @@ def invlog_rmse_tr10(y_true,y_pred):
 
     return K.sqrt( K.mean(K.square( tf.boolean_mask ((y_true - y_pred), true_mask ) ) ) )
 
+def inv_minmax_mape_tr10(y_true,y_pred):
+    
+    y_true = y_true*ADJ_RATE
+    y_pred = y_pred*ADJ_RATE
+
+#    true_mask = y_true>10
+#    true_mask = K.cast_to_floatx(true_mask)
+    true_mask = K.greater(y_true,10)
+    true_mask = K.cast(true_mask, dtype=K.floatx())
+    
+    return K.mean(K.abs(  ( tf.boolean_mask ( (y_true - y_pred), true_mask )  / tf.boolean_mask(y_true, true_mask) ) ) )
+
+def inv_minmax_rmse_tr10(y_true,y_pred):
+    
+    y_true = y_true*ADJ_RATE
+    y_pred = y_pred*ADJ_RATE
+    
+#    true_mask = y_true>10
+    true_mask = K.greater(y_true,10)
+    true_mask = K.cast(true_mask, dtype=K.floatx())
+
+    return K.sqrt( K.mean(K.square( tf.boolean_mask ((y_true - y_pred), true_mask ) ) ) )
 
 
 def invlog_mape(y_true,y_pred):
