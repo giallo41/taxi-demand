@@ -11,12 +11,8 @@
 <br>
 
 ![SEO_data_stats](./output_file/graph/seo_data_stats.png)
-
 ```
-Seoul Ride Hailing Requests: 
-(left) the ride hailing requests in residential and commercial area, 
-(middle) different patterns in residential area on holiday and 
-(right) average requests in each day of week
+Seoul Ride Hailing Requests: (left) the ride hailing requests in residential and commercial area, (middle) different patterns in residential area on holiday and (right) average requests in each day of week
 ```
 <br>
 
@@ -31,11 +27,8 @@ Seoul Ride Hailing Requests:
 <br>
 
 ![SEO_data_stats](./output_file/graph/seo_end_start_map.png)
-
 ```
-Aggregated request data to grid cell, which has in 30 minutes. 
-(left) Requests data in 08/01/2018 Mon AM 08:00 
-(right) Drop-off data in same day and same time  
+Aggregated request data to grid cell, which has in 30 minutes. (left) Requests data in 08/01/2018 Mon AM 08:00 (right) Drop-off data in same day and same time  
 ```
 
 <br>
@@ -51,5 +44,42 @@ Aggregated request data to grid cell, which has in 30 minutes.
 
 - We achieve the performance enhancement previous works on the NYC datasets.
 
+| Method | MAPE | RMSE |
+|:--------|:--------:|:--------:|
+| Historical AVG | 23.18% | 43.82 |
+| ARIMA | 22.21% | 36.53 |
+| LinUOTD | 19.91% | 28.48 |
+| XGBoost | 19.35% | 26.07 |
+| ConvLSTM | 20.50% | 28.13 |
+| ST-ResNet | 21.13%| 26.23 |
+| DMVST-Net | 17.36% | 25.71 |
+| STDN | 16.30% | 24.10 |
+| <b>TGNet</b> | <b>xxxx</b> | <b>xxxx</b> |
 
-![NYC_performance](./output_file/graph/table02.png)
+
+<b>[ Contribution ]</b>
+
+- Our contribution is introduced temporal data directly to model output, then increase the performance.
+- Another one is using drop-off data. In some locations, drop-off data may represent the future demand.
+- We located those spot that held festival, concert and events irregularly.
+
+![Event_spots](./output_file/graph/event_graph.png)
+
+```
+- We select 4 Area which has stadium or complex hall
+- That place held the event irregularly such as Concert, Festival, Convention
+  - (1) Gocheok Skydome [37.498555, 126.867300]
+  - (2) Jangchung Sports Complex [37.558160, 127.006782]
+  - (3) Seoul worldcup stadium - (Sangam) [37.568130, 126.897210]
+  - (4) Seoul olympic stadium - (Jamsil) [37.515686, 127.072793]
+```
+Full Event list to considered model [[link]](./event_list.md)
+
+
+<b>[ Experiment ]</b>
+
+- We used UNet based network
+- using skip-connection
+- Average pooling
+- ADAM optimization
+- 20% validation set out of training, early stopping when the val_loss is not changed
