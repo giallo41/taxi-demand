@@ -439,8 +439,11 @@ def make_test_ouput(model, input_data, y_test, model_name='baseline', norm='log'
         x_test_pred_inversed = inverse_logscale(pred_out)
         y_test_inversed = inverse_logscale(y_test)
     else:
-        x_test_pred_inversed = inverse_maxscale(pred_out)
-        y_test_inversed = inverse_maxscale(y_test)
+        x_test_pred_inversed = pred_out*ADJ_RATE
+        y_test_inversed = y_test*ADJ_RATE
+    
+    x_test_pred_inversed = x_test_pred_inversed.astype(int)
+    y_test_inversed = y_test_inversed.astype(int)
         
         
     np_df = np.reshape(x_test_pred_inversed, 
@@ -482,7 +485,6 @@ def make_test_ouput(model, input_data, y_test, model_name='baseline', norm='log'
 
 
 
-
 def make_test_2ch_ouput(model, input_data, y_test, model_name='baseline', norm='log', output_folder='../output_file/'):
 
     pred_out = model.predict(input_data)
@@ -490,8 +492,11 @@ def make_test_2ch_ouput(model, input_data, y_test, model_name='baseline', norm='
         x_test_pred_inversed = inverse_logscale(pred_out)
         y_test_inversed = inverse_logscale(y_test)
     else:
-        x_test_pred_inversed = inverse_maxscale(pred_out)
-        y_test_inversed = inverse_maxscale(y_test)
+        x_test_pred_inversed = pred_out*ADJ_RATE
+        y_test_inversed = y_test*ADJ_RATE
+    
+    x_test_pred_inversed = x_test_pred_inversed.astype(int)
+    y_test_inversed = y_test_inversed.astype(int)
     
 
     pred_t1 = x_test_pred_inversed[:,:,:,:1]
