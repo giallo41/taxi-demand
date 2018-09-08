@@ -12,7 +12,10 @@
 
 ![SEO_data_stats](./output_file/graph/seo_data_stats.png)
 ```
-Seoul Ride Hailing Requests: (left) the ride hailing requests in residential and commercial area, (middle) different patterns in residential area on holiday and (right) average requests in each day of week
+Seoul Ride Hailing Requests: 
+(left) the ride hailing requests in residential and commercial area, 
+(middle) different patterns in residential area on holiday and 
+(right) average requests in each day of week
 ```
 
 <br><br><br>
@@ -29,7 +32,9 @@ Seoul Ride Hailing Requests: (left) the ride hailing requests in residential and
 
 ![SEO_data_stats](./output_file/graph/seo_end_start_map.png)
 ```
-Aggregated request data to grid cell, which has in 30 minutes. (left) Requests data in 08/01/2018 Mon AM 08:00 (right) Drop-off data in same day and same time  
+Aggregated request data to grid cell, which has in 30 minutes. 
+(left) Requests data in 08/01/2018 Mon AM 08:00 
+(right) Drop-off data in same day and same time  
 ```
 
 <br>
