@@ -12,9 +12,9 @@
 
 ![SEO_data_stats](./output_file/graph/seo_data_stats.png)
 ```
-Seoul Ride Hailing Requests: 
-(left) the ride hailing requests in residential and commercial area, 
-(middle) different patterns in residential area on holiday and 
+Seoul Ride Hailing Requests:
+(left) the ride hailing requests in residential and commercial area,
+(middle) different patterns in residential area on holiday and
 (right) average requests in each day of week
 ```
 
@@ -32,8 +32,8 @@ Seoul Ride Hailing Requests:
 
 ![SEO_data_stats](./output_file/graph/seo_end_start_map.png)
 ```
-Aggregated request data to grid cell, which has in 30 minutes. 
-(left) Requests data in 08/01/2018 Mon AM 08:00 
+Aggregated request data to grid cell, which has in 30 minutes.
+(left) Requests data in 08/01/2018 Mon AM 08:00
 (right) Drop-off data in same day and same time  
 ```
 
@@ -61,6 +61,18 @@ Aggregated request data to grid cell, which has in 30 minutes.
 | DMVST-Net | 17.36% | 25.71 |
 | STDN | 16.30% | 24.10 |
 | <b>TGNet</b> | <b>xxxx</b> | <b>xxxx</b> |
+
+- We also applied the same model to Seoul City datasets.
+
+| Method | MAPE | RMSE |
+|:--------|:--------:|:--------:|
+| ARIMA | 23.05% | 12.53 |
+| XGBoost | 19.68% | 8.08 |
+| Baseline | 18.87% | 7.06 |
+| Baseline + Drop-off | 18.62% | 6.73 |
+| Baseline + Temporal Information | 17.97% | 6.68 |
+| <b>TGNet</b> | <b>17.72</b> | <b>6.32</b> |
+
 
 <br><br><br>
 <b>[ Contribution ]</b>
