@@ -14,7 +14,8 @@
 ```
 Seoul Ride Hailing Requests: (left) the ride hailing requests in residential and commercial area, (middle) different patterns in residential area on holiday and (right) average requests in each day of week
 ```
-<br>
+
+<br><br><br>
 
 <b>[ Data Processing ]</b>
 
@@ -39,7 +40,7 @@ Aggregated request data to grid cell, which has in 30 minutes. (left) Requests d
 
 - The first 40 days data is considered training purpose, and the remaining 20 days are tested.
 
-
+<br><br><br>
 <b>[ Results ]</b>
 
 - We achieve the performance enhancement previous works on the NYC datasets.
@@ -56,7 +57,7 @@ Aggregated request data to grid cell, which has in 30 minutes. (left) Requests d
 | STDN | 16.30% | 24.10 |
 | <b>TGNet</b> | <b>xxxx</b> | <b>xxxx</b> |
 
-
+<br><br><br>
 <b>[ Contribution ]</b>
 
 - Our contribution is introduced temporal data directly to model output, then increase the performance.
@@ -75,7 +76,7 @@ Aggregated request data to grid cell, which has in 30 minutes. (left) Requests d
 ```
 Full Event list to considered model [[link]](./event_list.md)
 
-
+<br><br><br>
 <b>[ Experiment ]</b>
 
 - We used UNet based network
@@ -83,3 +84,5 @@ Full Event list to considered model [[link]](./event_list.md)
 - Average pooling
 - ADAM optimization
 - 20% validation set out of training, early stopping when the val_loss is not changed
+
+<br><br><br>
