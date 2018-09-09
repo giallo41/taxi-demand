@@ -60,7 +60,7 @@ Aggregated request data to grid cell, which has in 30 minutes.
 | ST-ResNet | 21.13%| 26.23 |
 | DMVST-Net | 17.36% | 25.71 |
 | STDN | 16.30% | 24.10 |
-| <b>TGNet</b> | <b>xxxx</b> | <b>xxxx</b> |
+| <b>TGNet</b> | <b>15.65%</b> | <b>24.08</b> |
 
 - We also applied the same model to Seoul City datasets.
 
