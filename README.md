@@ -96,10 +96,10 @@ Full Event list to considered model [[link]](./event_list.md)
 <br><br><br>
 <b>[ Experiment ]</b>
 
-- We used UNet based network
+- UNet based network (CNN kernel size 3x3)
 - using skip-connection
 - Average pooling
 - ADAM optimization
-- 20% validation set out of training, early stopping when the val_loss is not changed
+- 20% validation set out of training, early stopping applied when the val_loss is not changed
 
 <br><br><br>
