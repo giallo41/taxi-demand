@@ -572,3 +572,54 @@ def make_test_2ch_ouput(model, input_data, y_test, model_name='baseline', norm='
     print ('- True Avg %0.2f'%np.average(df_true_t2.values), ', Pred Avg %.2f'%np.average(df_pred_t2.values))
     print ('- MAPE(+1) : %.3f'%mape(df_true_t2.values,df_pred_t2.values))
     print ('- RMSE : %.3f'%rmse(df_true_t2.values,df_pred_t2.values))
+
+    
+def make_test_ouput_norm(model, input_data, y_test, model_name='baseline', norm='log', output_folder='../output_file/'):
+
+    pred_out = model.predict(input_data)
+    if norm == 'log' :
+        x_test_pred_inversed = inverse_logscale(pred_out)
+        y_test_inversed = inverse_logscale(y_test)
+    else:
+        x_test_pred_inversed = pred_out*ADJ_RATE
+        y_test_inversed = y_test*ADJ_RATE
+    
+    x_test_pred_inversed = x_test_pred_inversed.astype(int)
+    y_test_inversed = y_test_inversed.astype(int)
+        
+    np_df = np.reshape(x_test_pred_inversed, 
+                       (x_test_pred_inversed.shape[0],  x_test_pred_inversed.shape[1],x_test_pred_inversed.shape[2]))
+    np_df = np.reshape(np_df, 
+                       (x_test_pred_inversed.shape[0],  x_test_pred_inversed.shape[1]*x_test_pred_inversed.shape[2]))
+    
+    np_y_test = np.reshape(y_test_inversed, 
+                           (y_test_inversed.shape[0],  y_test_inversed.shape[1],y_test_inversed.shape[2]))
+    np_y_test = np.reshape(np_y_test, 
+                           (y_test_inversed.shape[0],  y_test_inversed.shape[1]*y_test_inversed.shape[2]))
+    
+    m, col = np_y_test.shape
+    
+    col_name = []
+    for i in range(0, col):
+        col_name.append('col_'+str(i) )
+        
+                       
+    df_test = pd.DataFrame(np_y_test, columns=col_name, index=np.arange(0,np_y_test.shape[0]))
+    df_test_pred = pd.DataFrame(np_df, columns=col_name, index=np.arange(0,np_df.shape[0]))
+    
+    y_test_file = output_folder+model_name+'_gt.csv'
+    x_pred_file = output_folder+model_name+'_pred.csv'
+    
+    df_test.to_csv(y_test_file)
+    df_test_pred.to_csv(x_pred_file)
+    
+#    print ('MAPE original Data(+1) : %.3f'%mape(y_test_inversed, x_test_pred_inversed) )
+    
+    print ('Test True saved : ', y_test_file)
+    print ('Test Pred saved : ', x_pred_file)
+    print ('')
+    
+    print ("## Test datasets Performance")
+    print ("- MAPE(11 or more) : %.4f"%mape_trs(y_test_inversed, x_test_pred_inversed, 11))
+    print ("- RMSE(11 or more) : %.4f"%rmse_trs(y_test_inversed, x_test_pred_inversed, 11))
+    print ('')
