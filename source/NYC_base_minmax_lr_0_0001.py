@@ -35,18 +35,19 @@ from keras.utils.training_utils import multi_gpu_model
 ## Hyperparam  - 맞게 수정하거나 Arg로 받아 온다. (Data Folder / Model Name / Model Ver ) 추가 
 ###################
 
-LRATE = 1e-4
+LRATE = 1e-2
 BATCH_SIZE = 128
-EPOCHS = 3000
+EPOCHS = 4000
 SCALE = 'log' # or 'max' or 'log'
-NGPU = 2
+NGPU = 4
+N_PTS = 100
 
 ## Folder / File Name
 DATA_FOLDER = '/data/public/rw/prj-mobility/10.195.12.143/kakaobrain/taxi/datasets/NY_data/'
 
 ## Baseline Model Folder 
 BASE_MODEL_NAME = 'MODEL_V2_NYC'
-MODEL_VER = '0905_002_NY_V1_min_max_scale_lr_0_0001'
+MODEL_VER = '0910_008_NY_V1_min_max_scale_base_1_0_01_p100'
 
 
 ##################################################
@@ -78,6 +79,8 @@ if os.path.isdir(MODEL_SAVE_FOLDER) == False:
     print ('Save Folder :',MODEL_SAVE_FOLDER, 'created')
 else :
     print ('Save Folder :',MODEL_SAVE_FOLDER)
+
+    
     
     
 ########################################
@@ -131,8 +134,13 @@ x_t1_temporal_test = temporal_test[:-1]
 x_st_train = np.concatenate((x_st_train,coord_train[:-1]), axis=3)
 x_st_test = np.concatenate((x_st_test,coord_test[:-1]), axis=3)
 
+## Y-data Concat ch1 - t+1, ch2 - t+2 
+#y_train = np.concatenate( (y_train, y_t2_train), axis=3)
+#y_test = np.concatenate( (y_test, y_t2_test), axis=3)
+
 print (x_st_train.shape, x_ed_train.shape, y_train.shape, x_t1_temporal_train.shape,x_t2_temporal_train.shape, y_t2_train.shape)
 print (x_st_test.shape, x_ed_test.shape, y_test.shape, x_t1_temporal_test.shape,x_t2_temporal_test.shape, y_t2_test.shape)
+
 
 
 ########################################
@@ -164,6 +172,7 @@ x_t2_temporal_train = x_t2_temporal_train[:val_idx]
 print ('----- After Split ----')
 print (x_st_train.shape, x_ed_train.shape, x_t1_temporal_train.shape, x_t2_temporal_train.shape)
 print (x_st_val.shape, x_ed_val.shape, x_t1_temporal_val.shape, x_t2_temporal_val.shape)
+
 
 ########################################
 ## Make Model
@@ -258,7 +267,7 @@ def make_temporal_model(st_data, ed_data, tmp_data):
     net71 = layers.Activation('relu')(net71)
     net71 = BatchNormalization()(net71)
 
-    #net72 = layers.concatenate([net6, start_input, net_end, end_input, net_t2_temp, coord_input], axis=-1)
+    #net72 = layers.concatenate([net6,net_t2_temp, net_end, start_input, end_input, coord_input], axis=-1)
     #net72 = Conv2DTranspose(256, kernel_size=(1,1), padding='same')(net72)
     #net72 = layers.Activation('relu')(net72)
     #net72 = BatchNormalization()(net72)
@@ -281,6 +290,7 @@ model = multi_gpu_model(b_model, gpus=NGPU)
 print (MODEL_NAME_, 'Model Created')
 print (b_model.summary())
 
+
 ########################################
 ## Callback 
 ########################################
@@ -298,7 +308,7 @@ class SGDLearningRateTracker(Callback):
         print('LR: {:.6f}'.format(lr))
 
 tb_hist = keras.callbacks.TensorBoard(log_dir=TF_FOLDER, histogram_freq=0, write_graph=True, write_images=True)
-early_stopping = keras.callbacks.EarlyStopping(monitor='inv_minmax_mape_tr10', min_delta=0, patience=100, verbose=0, mode='min')
+early_stopping = keras.callbacks.EarlyStopping(monitor='inv_minmax_mape_tr10', min_delta=0, patience=N_PTS, verbose=0, mode='min')
 
 
 ########################################
@@ -333,9 +343,17 @@ print ('')
 print("--- Train Time : %0.2f hour  ---" %(  (end_time - start_time)/3600  ))
 print("--- # of Epochs: %0.f  ---" %( n_epochs ) )
 
-print ('')
-print ("## Test datasets Performance")
-print ("- MAPE(11 or more) : %.3f"%mape_trs(y_test*ADJ_RATE, pred_test*ADJ_RATE, 11))
-print ("- RMSE(11 or more) : %.3f"%rmse_trs(y_test*ADJ_RATE, pred_test*ADJ_RATE, 11))
-print ('')
+
+
+########################################
+## Save Model & Output  
+########################################
+
+save_model_name = MODEL_SAVE_FOLDER+MODEL_NAME_+'st2.h5'
+b_model.save(save_model_name)
+print ('Model Saved', save_model_name)
+
+make_test_ouput_norm(model, model_input_test_data , y_test, model_name=MODEL_NAME_, norm='min', output_folder=OUTPUT_FOLDER)
+
+
 
