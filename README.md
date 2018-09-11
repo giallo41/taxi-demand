@@ -3,6 +3,20 @@
 
 ------------
 
+<b>[ Objective ]</b>
+
+- We want predict the future taxi-demand within 30-min of all locations.
+
+<br>
+
+
+<b>[ Summary ]</b>
+
+- TGNet(temporal guided network) applied Seoul City & NYC taxi datasets.
+- It outperforms previous models. 
+
+<br>
+
 <b>[ Intro ]</b>
 
 - On-demand taxi request service is very convenient in city life.
