@@ -45,6 +45,8 @@ Aggregated request data to grid cell, which has in 30 minutes.
 
 - The first 40 days data is considered training purpose, and the remaining 20 days are tested.
 
+- Preprocessed NYC datasets are available now [[down]](https://github.com/giallo41/taxi-demand/tree/master/data/NYC_2015)
+
 <br><br><br>
 <b>[ Results ]</b>
 
