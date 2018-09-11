@@ -107,7 +107,7 @@ Aggregated request data to grid cell, which has in 30 minutes.
   - (3) Seoul worldcup stadium - (Sangam) [37.568130, 126.897210]
   - (4) Seoul olympic stadium - (Jamsil) [37.515686, 127.072793]
 ```
-Full Event list to considered model [[link]](./event_list.md)
+###### Full Event list [[link]](./event_list.md)
 
 <br><br><br>
 <b>[ Experiment ]</b>
